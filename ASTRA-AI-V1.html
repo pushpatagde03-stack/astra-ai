@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASTRA AI — Your Personal Smart Agent</title>
+<style>
+:root{--bg:#080d1b;--panel:#111a2e;--panel2:#17233b;--line:#263653;--gold:#e7bd68;--text:#edf2ff;--muted:#9aa9c4;--blue:#72b7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 75% 0%,#182748 0,#080d1b 42%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{background:rgba(9,15,30,.92);border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;padding:6px 8px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#f7d98d,#9d6a22);display:grid;place-items:center;color:#182039;font-size:22px;font-weight:900;box-shadow:0 0 24px #e7bd6840}.brand h1{font-size:19px;letter-spacing:2px;margin:0;color:var(--gold)}.brand small{color:var(--muted);font-size:10px;letter-spacing:1px}
+.navlabel{color:#7183a2;font-size:10px;letter-spacing:1.7px;padding:0 10px;margin:6px 0}.nav button{width:100%;border:0;background:transparent;color:#c5d0e5;text-align:left;padding:12px;border-radius:10px;margin:2px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#1b2a45;color:#fff}.nav button span{display:inline-block;width:26px;color:var(--gold)}
+.sidebarfoot{margin-top:auto;background:#111c31;border:1px solid var(--line);border-radius:14px;padding:13px;font-size:12px;color:var(--muted);line-height:1.5}.sidebarfoot strong{color:var(--gold)}
+main{padding:28px;max-width:1400px;width:100%;margin:auto}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:2px;text-transform:uppercase}.topbar h2{margin:7px 0 0;font-size:clamp(23px,3vw,32px)}.status{border:1px solid #31513f;background:#10251e;color:#9ce0b5;padding:8px 12px;border-radius:99px;font-size:12px}
+.hero{background:linear-gradient(115deg,#172744,#10192d 70%);border:1px solid #30415f;border-radius:22px;padding:25px;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden;position:relative}.hero:after{content:"✦";position:absolute;right:23%;top:-45px;font-size:180px;color:#e7bd6810}.hero h3{font-size:25px;margin:0 0 9px}.hero p{color:var(--muted);margin:0;line-height:1.6;max-width:580px}.orb{width:112px;height:112px;flex:0 0 112px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff1c7,#e6b85d 25%,#7652a5 58%,#17213c 75%);box-shadow:0 0 35px #b98bdb66, inset 0 0 20px #fff8;display:grid;place-items:center;color:#10172a;font-size:35px}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,.9fr);gap:18px;margin-top:18px}.card{background:rgba(17,26,46,.9);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.card h3{font-size:16px;margin:0}.muted{color:var(--muted);font-size:12px}.chatbox{height:340px;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:5px 2px 15px}.msg{max-width:88%;padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.55;white-space:pre-wrap}.bot{background:#1b2a45;border:1px solid #2b4164;align-self:flex-start}.user{background:#57472c;border:1px solid #987843;align-self:flex-end}.composer{display:flex;gap:8px;align-items:center}.composer input{flex:1;min-width:0;background:#0b1324;border:1px solid #2b3c5c;border-radius:12px;padding:13px;color:white;outline:none}.composer input:focus{border-color:var(--gold)}button{font:inherit}.action{border:1px solid #3b5276;background:#1b2a45;color:#edf2ff;border-radius:11px;padding:11px 13px;cursor:pointer}.action.primary{background:linear-gradient(135deg,#e7bd68,#b98536);color:#172039;border:0;font-weight:700}.action:hover{filter:brightness(1.12)}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.select{background:#0b1324;color:#dfe8fa;border:1px solid #344867;border-radius:10px;padding:9px}
+.featurelist{display:grid;grid-template-columns:1fr 1fr;gap:10px}.feature{background:#0d1629;border:1px solid #243653;border-radius:13px;padding:13px}.feature b{display:block;font-size:13px;margin-bottom:5px}.feature small{color:var(--muted);font-size:11px;line-height:1.4}.feature i{font-style:normal;color:var(--gold);font-size:18px;display:block;margin-bottom:8px}
+.taskrow{display:flex;gap:8px;margin:12px 0}.taskrow input{flex:1;min-width:0;background:#0b1324;border:1px solid #2b3c5c;border-radius:10px;padding:11px;color:#fff}.task{display:flex;align-items:center;gap:9px;padding:9px 2px;border-bottom:1px solid #24324b;font-size:13px}.task.done span{text-decoration:line-through;color:#7f8da6}.task button{margin-left:auto;background:none;border:0;color:#ff9d9d;cursor:pointer}
+.note{width:100%;min-height:90px;background:#0b1324;border:1px solid #2b3c5c;border-radius:10px;color:white;padding:12px;resize:vertical}.footnote{font-size:11px;color:#8292ae;line-height:1.5;margin-top:18px}
+@media(max-width:850px){.app{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:12px}.brand{padding:4px}.nav{display:flex;overflow:auto;gap:4px}.navlabel,.sidebarfoot{display:none}.nav button{white-space:nowrap;width:auto}.grid{grid-template-columns:1fr}main{padding:16px}.hero{padding:19px}.orb{width:76px;height:76px;flex-basis:76px}}
+@media(max-width:480px){.orb{display:none}.composer{flex-wrap:wrap}.composer input{flex-basis:100%}.featurelist{grid-template-columns:1fr 1fr}.status{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">✦</div><div><h1>ASTRA AI</h1><small>PERSONAL SMART AGENT</small></div></div>
+  <div class="navlabel">WORKSPACE</div>
+  <nav class="nav">
+    <button class="active" onclick="showSection('home',this)"><span>⌂</span>Overview</button>
+    <button onclick="showSection('chat',this)"><span>✧</span>AI Chat</button>
+    <button onclick="showSection('tasks',this)"><span>✓</span>My Tasks</button>
+    <button onclick="showSection('notes',this)"><span>▤</span>Notes</button>
+  </nav>
+  <div class="sidebarfoot"><strong>ASTRA AI V1</strong><br>Starter workspace is ready.<br>AI service connection is not enabled yet.</div>
+</aside>
+<main>
+  <div class="topbar"><div><div class="eyebrow">YOUR INTELLIGENCE SPACE</div><h2 id="pageTitle">Welcome to ASTRA AI</h2></div><div class="status">● Local prototype</div></div>
+  <section id="home">
+    <div class="hero"><div><div class="eyebrow">THINK · CREATE · AUTOMATE</div><h3>Your personal smart agent.</h3><p>One simple workspace for chatting, voice experiments, notes and daily tasks. Start by sending a message or adding your first task.</p></div><div class="orb">✦</div></div>
+    <div class="grid">
+      <div class="card" id="chatCard"><div class="cardhead"><h3>✧ Smart Chat</h3><span class="muted">Preview</span></div>
+        <div class="chatbox" id="chatbox"><div class="msg bot">नमस्कार! मी ASTRA AI आहे. 😊<br>मी तुझा starter assistant आहे. मला मेसेज पाठवून पाहा!</div></div>
+        <div class="composer"><input id="message" placeholder="Type in Marathi, Hindi or English..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="action primary" onclick="sendMessage()">Send</button></div>
+        <div class="controls"><select class="select" id="lang"><option value="mr-IN">मराठी</option><option value="hi-IN">हिंदी</option><option value="en-IN">English</option></select><button class="action" onclick="startVoice()">🎙 Speak</button><button class="action" onclick="stopVoice()">Stop</button><button class="action" onclick="speakLast()">🔊 Read reply</button></div>
+      </div>
+      <div class="card"><div class="cardhead"><h3>Quick tools</h3><span class="muted">V1</span></div><div class="featurelist">
+        <div class="feature"><i>✧</i><b>AI Chat</b><small>Starter chat interface</small></div>
+        <div class="feature"><i>🎙</i><b>Voice</b><small>Browser speech support</small></div>
+        <div class="feature"><i>✓</i><b>Tasks</b><small>Save a to-do list</small></div>
+        <div class="feature"><i>▤</i><b>Notes</b><small>Keep quick notes</small></div>
+      </div></div>
+    </div>
+  </section>
+  <section id="tasks" hidden><div class="card"><div class="cardhead"><h3>✓ My Tasks</h3><span class="muted">Saved in this browser</span></div><div class="taskrow"><input id="taskInput" placeholder="Add a task..." onkeydown="if(event.key==='Enter')addTask()"><button class="action primary" onclick="addTask()">Add task</button></div><div id="taskList"></div></div></section>
+  <section id="notes" hidden><div class="card"><div class="cardhead"><h3>▤ My Notes</h3><span class="muted">Auto-saved on this device</span></div><textarea class="note" id="notesText" placeholder="Write your ideas here..."></textarea><p class="muted">Your notes stay in this browser using local storage.</p></div></section>
+  <section id="chat" hidden><div class="card"><h3>✧ AI Chat</h3><p class="muted">Use the Smart Chat panel on Overview to start a conversation.</p><button class="action" onclick="showSection('home',document.querySelector('.nav button'))">Go to chat</button></div></section>
+  <p class="footnote">Important: This is ASTRA AI V1 starter UI. Chat replies are demo responses, not generated by a connected AI model. Voice features depend on browser support and internet access. Computer automation, web search and real AI will be added in later steps. Do not enter passwords, API keys or private information.</p>
+</main>
+</div>
+<script>
+let lastReply="नमस्कार! मी ASTRA AI आहे.";
+function showSection(id,btn){document.querySelectorAll('main section').forEach(s=>s.hidden=true);document.getElementById(id).hidden=false;document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('pageTitle').textContent=({home:'Welcome to ASTRA AI',chat:'AI Chat',tasks:'My Tasks',notes:'My Notes'})[id];}
+function addMsg(text,who){const box=document.getElementById('chatbox');const d=document.createElement('div');d.className='msg '+who;d.textContent=text;box.appendChild(d);box.scrollTop=box.scrollHeight;}
+function demoReply(q){const l=document.getElementById('lang').value;if(/hello|hi|hey/i.test(q))return 'Hello! I am ASTRA AI. How can I help you today?';if(/नमस्कार|नमस्ते|हाय/i.test(q))return 'नमस्कार! आज मी तुझी कोणती मदत करू?';if(/नोट|task|काम|यादी/i.test(q))return 'मी तुझ्यासाठी Tasks आणि Notes विभाग उपलब्ध करून दिले आहेत. डावीकडील मेनूमधून ते उघड.';if(l==='hi-IN')return 'मैं ASTRA AI का शुरुआती संस्करण हूँ। अभी मेरा असली AI मॉडल कनेक्ट नहीं है। हम अगले चरण में AI सेवा जोड़ेंगे।';if(l==='en-IN')return 'I am the ASTRA AI starter assistant. A real AI model is not connected yet. We will connect one in the next development step.';return 'मी ASTRA AI ची सुरुवातीची आवृत्ती आहे. अजून खरा AI model जोडलेला नाही. पुढच्या टप्प्यात आपण सुरक्षित पद्धतीने AI जोडू.';}
+function sendMessage(){const input=document.getElementById('message');const q=input.value.trim();if(!q)return;addMsg(q,'user');input.value='';lastReply=demoReply(q);addMsg(lastReply,'bot');}
+let recognition=null;
+function startVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('या browser मध्ये voice recognition उपलब्ध नाही. Chrome किंवा Edge वापरून पाहा.');return;}if(recognition)recognition.stop();recognition=new SR();recognition.lang=document.getElementById('lang').value;recognition.interimResults=false;recognition.onresult=e=>{document.getElementById('message').value=e.results[0][0].transcript;sendMessage();};recognition.onerror=e=>alert('Voice error: '+e.error);recognition.start();}
+function stopVoice(){if(recognition)recognition.stop();if(window.speechSynthesis)window.speechSynthesis.cancel();}
+function speakLast(){if(!('speechSynthesis'in window)){alert('Speech output is not supported in this browser.');return;}const u=new SpeechSynthesisUtterance(lastReply);u.lang=document.getElementById('lang').value;window.speechSynthesis.speak(u);}
+let tasks=JSON.parse(localStorage.getItem('astra_tasks')||'[]');
+function renderTasks(){const list=document.getElementById('taskList');list.innerHTML='';tasks.forEach((t,i)=>{const row=document.createElement('div');row.className='task'+(t.done?' done':'');const cb=document.createElement('input');cb.type='checkbox';cb.checked=t.done;cb.onchange=()=>{tasks[i].done=cb.checked;saveTasks();};const span=document.createElement('span');span.textContent=t.text;const del=document.createElement('button');del.textContent='Delete';del.onclick=()=>{tasks.splice(i,1);saveTasks();};row.append(cb,span,del);list.appendChild(row);});}
+function saveTasks(){localStorage.setItem('astra_tasks',JSON.stringify(tasks));renderTasks();}
+function addTask(){const input=document.getElementById('taskInput');const v=input.value.trim();if(!v)return;tasks.push({text:v,done:false});input.value='';saveTasks();}
+const notes=document.getElementById('notesText');notes.value=localStorage.getItem('astra_notes')||'';notes.addEventListener('input',()=>localStorage.setItem('astra_notes',notes.value));renderTasks();
+</script>
+</body>
+</html>
